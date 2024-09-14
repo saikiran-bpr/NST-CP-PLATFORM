@@ -1,6 +1,6 @@
 "use client"
 import React from "react";
-import { cn } from "../../utils/accertinityUtil";
+import { cn } from "@/lib/utils";
 import { Spotlight } from "./spotlight";
 import { SparklesCore } from "./sparkles";
 import { motion } from "framer-motion";
