@@ -24,7 +24,7 @@ export default function SignUpForm() {
     passwords : false,
     password: false,
   });
-  const handleInput = (e) => {
+  const handleInput = (e : any) => {
     setInputDetails(prev => {
         return {
             ...prev,

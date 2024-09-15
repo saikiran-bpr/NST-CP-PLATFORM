@@ -91,7 +91,7 @@ export function PlayIcon(props : any) {
     </svg>
   );
 }
-export function ArrowLeftIcon(props) {
+export function ArrowLeftIcon(props : any) {
   return (
     <svg
       {...props}
@@ -111,7 +111,7 @@ export function ArrowLeftIcon(props) {
   );
 }
 
-export function SettingsIcon(props) {
+export function SettingsIcon(props : any) {
   return (
     <svg
       {...props}
