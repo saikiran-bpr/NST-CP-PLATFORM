@@ -8,7 +8,7 @@ import {
   SelectItem,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Editor } from "@monaco-editor/react";
 import { FileQuestionIcon, ClipboardListIcon, PlayIcon } from "@/icons/index";
 import { SubmissionsPage } from "@/components/submissionsPage";
@@ -20,8 +20,36 @@ import {
 } from "@/components/ui/resizable";
 import { CODESNIPPETS } from "@/constants";
 
-export default function Problem() {
-  const [language, setLanguage] = useState("javascript");
+interface Question {
+  id: number;
+  question: string;
+  description: string;
+  input: string;
+  output: string;
+  constraints: string;
+  sample_input_1: string;
+  sample_output_1: string;
+  sample_input_2: string;
+  sample_output_2: string;
+}
+
+type languages = "javascript" | "java" | "cpp" | "python";
+
+export default function Problem({ params }: { params: { id: Number } }) {
+  const id = params.id;
+  const [question, setQuestion] = useState<Question>();
+  useEffect(() => {
+    (async () => {
+      const response = await fetch(`http://localhost:3000/api/problem/${id}`);
+      const problem = await response.json();
+      console.log(problem);
+      if (problem.success) {
+        setQuestion(problem.problem);
+      }
+    })();
+  }, []);
+
+  const [language, setLanguage] = useState<languages>("javascript");
   const [page, setPage] = useState(true);
   return (
     <ResizablePanelGroup direction="horizontal">
@@ -53,10 +81,18 @@ export default function Problem() {
                 <Badge variant="outline">Easy</Badge>
               </div>
             </div>
-            {page ? <ProblemPage /> : <SubmissionsPage />}
+            {page ? (
+              question ? (
+                <ProblemPage question={question} />
+              ) : (
+                <p>Loading question...</p>
+              )
+            ) : (
+              <SubmissionsPage />
+            )}
           </div>
         </ResizablePanel>
-        <ResizableHandle withHandle/>
+        <ResizableHandle withHandle />
         <ResizablePanel>
           <div className="flex flex-col">
             <div className="flex items-center justify-between border-b border-border p-4">
@@ -70,7 +106,7 @@ export default function Problem() {
                     <SelectValue placeholder={"javascript"} />
                   </SelectTrigger>
                   <SelectContent>
-                    {Object.keys(CODESNIPPETS).map(language => (
+                    {Object.keys(CODESNIPPETS).map((language) => (
                       <SelectItem value={language}>{language}</SelectItem>
                     ))}
                   </SelectContent>
@@ -81,9 +117,14 @@ export default function Problem() {
                   <PlayIcon className="h-5 w-5" />
                   <span className="sr-only">Run</span>
                 </Button>
-                <Button size="sm" onClick={() => {
-                  setPage(false);
-                }}>Submit</Button>
+                <Button
+                  size="sm"
+                  onClick={() => {
+                    setPage(false);
+                  }}
+                >
+                  Submit
+                </Button>
               </div>
             </div>
             <div className="flex-1 overflow-auto">

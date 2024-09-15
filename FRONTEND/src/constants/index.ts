@@ -1,4 +1,4 @@
-interface CodeSnippets {
+type CodeSnippets = {
     javascript: string;
     java: string;
     cpp: string;
