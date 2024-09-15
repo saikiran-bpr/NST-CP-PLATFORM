@@ -98,7 +98,7 @@ export default function Problem({ params }: { params: { id: Number } }) {
             <div className="flex items-center justify-between border-b border-border p-4">
               <div className="flex items-center gap-2">
                 <Select
-                  onValueChange={(e) => {
+                  onValueChange={(e : any) => {
                     setLanguage(e);
                   }}
                 >
