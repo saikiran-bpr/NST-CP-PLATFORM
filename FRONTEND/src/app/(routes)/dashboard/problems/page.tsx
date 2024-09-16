@@ -9,7 +9,8 @@ type problems = [
 ];
 
 export default async function Problems() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/problems`);
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const response = await fetch(`${apiUrl}/api/problems`);
   const res = (await response.json());
   if(!res.success){
     return <div>Error while fetching data</div>
