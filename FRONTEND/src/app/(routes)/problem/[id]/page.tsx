@@ -40,7 +40,7 @@ export default function Problem({ params }: { params: { id: Number } }) {
   const [question, setQuestion] = useState<Question>();
   useEffect(() => {
     (async () => {
-      const response = await fetch(`http://localhost:3000/api/problem/${id}`);
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/problem/${id}`);
       const problem = await response.json();
       console.log(problem);
       if (problem.success) {

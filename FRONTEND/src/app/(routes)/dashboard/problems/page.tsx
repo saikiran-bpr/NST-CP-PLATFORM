@@ -9,7 +9,7 @@ type problems = [
 ];
 
 export default async function Problems() {
-  const response = await fetch(`http://localhost:3000/api/problems`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/problems`);
   const res = (await response.json());
   if(!res.success){
     return <div>Error while fetching data</div>
