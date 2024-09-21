@@ -1,21 +1,9 @@
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-
-type problems = [
-  {
-    "id": Number,
-    "question": String
-  }
-];
+import allProblems from "@/app/problems.json"
 
 export default async function Problems() {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
-  const response = await fetch(`${apiUrl}/api/problems`);
-  const res = (await response.json());
-  if(!res.success){
-    return <div>Error while fetching data</div>
-  }
-  const problems : problems = res.problems;
+  const problems = allProblems;
   return (
     <div className="bg-background text-foreground">
       <div className="container mx-auto px-4 py-12 sm:px-6 lg:px-8">

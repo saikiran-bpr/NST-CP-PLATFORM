@@ -19,6 +19,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { CODESNIPPETS } from "@/constants";
+import allProblems from "@/app/problems.json"
 
 interface Question {
   id: number;
@@ -39,14 +40,16 @@ export default function Problem({ params }: { params: { id: Number } }) {
   const id = params.id;
   const [question, setQuestion] = useState<Question>();
   useEffect(() => {
-    (async () => {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/problem/${id}`);
-      const problem = await response.json();
-      console.log(problem);
-      if (problem.success) {
-        setQuestion(problem.problem);
-      }
-    })();
+    // (async () => {
+    //   const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/problem/${id}`);
+    //   const problem = await response.json();
+    //   console.log(problem);
+    //   if (problem.success) {
+    //     setQuestion(problem.problem);
+    //   }
+    // })();
+    const problem = allProblems.find(problem => problem.id == id);
+    setQuestion(problem)
   }, []);
 
   const [language, setLanguage] = useState<languages>("javascript");
