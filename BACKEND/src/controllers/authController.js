@@ -1,11 +1,9 @@
-// controllers/authController.js
 
 const authService = require("../services/authService");
 
 const signup = async (req, res) => {
     const { username, email, password } = req.body;
     try {
-        // Call the signup method to create a user
         const user = await authService.signupUser({ username, email, password });
 
         res.status(200).json({
@@ -33,7 +31,6 @@ const signup = async (req, res) => {
 const signin = async (req, res) => {
     const { email, password } = req.body;
     try {
-        // Call the signin method to authenticate the user
         const token = await authService.signinUser({ email, password });
         return res.status(200).json({
             success: true,
